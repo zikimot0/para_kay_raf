@@ -1,0 +1,15 @@
+﻿<Window x:Class="ReminderApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Reminder" Height="250" Width="400">
+    <Grid>
+        <TextBlock Text="Task Reminder" FontSize="20" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top"/>
+        <TextBlock Text="Don't forget to complete your project!" FontSize="16" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top"/>
+
+        <Button Content="Logout" Width="100" Height="30" VerticalAlignment="Top" Margin="0,140,0,0" HorizontalAlignment="Center" Click="LogoutButton_Click"/>
+
+        <Button x:Name="ViewLogsButton" Content="View Logs" Width="100" Height="30" 
+                VerticalAlignment="Top" Margin="0,180,0,0" HorizontalAlignment="Center" 
+                Click="ViewLogsButton_Click" Visibility="Collapsed"/>
+    </Grid>
+</Window>

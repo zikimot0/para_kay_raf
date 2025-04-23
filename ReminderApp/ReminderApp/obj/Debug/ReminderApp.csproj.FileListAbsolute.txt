@@ -1,0 +1,16 @@
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\LoginWindow.baml
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\MainWindow.baml
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\LoginWindow.g.cs
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\MainWindow.g.cs
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp_MarkupCompile.cache
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\bin\Debug\ReminderApp.exe.config
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\bin\Debug\ReminderApp.exe
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\bin\Debug\ReminderApp.pdb
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\App.g.cs
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.g.resources
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.Properties.Resources.resources
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.csproj.GenerateResource.cache
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.exe
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.pdb
