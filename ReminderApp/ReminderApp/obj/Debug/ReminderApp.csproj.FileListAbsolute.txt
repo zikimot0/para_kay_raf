@@ -14,3 +14,10 @@ C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.csproj
 C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.exe
 C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp.pdb
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\RegisterWindow.baml
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\RegisterWindow.g.cs
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderApp_MarkupCompile.lref
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\App.baml
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderWindow.baml
+C:\Users\Admin\source\repos\ReminderApp\ReminderApp\obj\Debug\ReminderWindow.g.cs
