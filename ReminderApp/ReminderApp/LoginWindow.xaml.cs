@@ -13,16 +13,19 @@ namespace ReminderApp
         {
             InitializeComponent();
         }
+
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             // Open the RegisterWindow
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Show(); // Show the RegisterWindow
+            this.Close();
         }
+
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string userEmail = EmailTextBox.Text.Trim();
-            string password = PasswordBox.Password;
+            string password = PasswordBox.Password.Trim();
 
             // Validate email and password fields
             if (string.IsNullOrWhiteSpace(userEmail) || string.IsNullOrWhiteSpace(password))
@@ -41,6 +44,7 @@ namespace ReminderApp
                 }
 
                 // Admin login successful
+                LogLoginAttempt(userEmail, successful: true);
                 OpenMainWindow(userEmail);
                 return;
             }
@@ -63,10 +67,12 @@ namespace ReminderApp
                 if (storedPassword != password)
                 {
                     ShowError("Incorrect password.");
+                    LogLoginAttempt(userEmail, successful: false);
                     return;
                 }
 
                 // User login successful
+                LogLoginAttempt(userEmail, successful: true);
                 OpenMainWindow(userEmail);
             }
             catch (Exception ex)
@@ -114,6 +120,28 @@ namespace ReminderApp
         {
             ErrorMessage.Text = message;
             ErrorMessage.Visibility = Visibility.Visible;
+        }
+
+        private void LogLoginAttempt(string email, bool successful)
+        {
+            try
+            {
+                string logFilePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "ReminderApp",
+                    "login_logs.txt"
+                );
+
+                Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
+
+                string logEntry = $"{DateTime.Now}: {email} - {(successful ? "Login successful" : "Login failed")}";
+                File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle error silently. Don't crash the app if logging fails.
+                Console.WriteLine($"Failed to log login attempt: {ex.Message}");
+            }
         }
     }
 }

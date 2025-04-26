@@ -14,37 +14,39 @@
             <!-- Buttons -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <!-- Left (Logout) -->
             <ColumnDefinition Width="*"/>
-            <!-- Center (Login Logs) -->
+            <!-- Main Content -->
             <ColumnDefinition Width="Auto"/>
-            <!-- Right (Add Reminder) -->
+            <!-- Middle-Right Side Actions -->
         </Grid.ColumnDefinitions>
 
         <!-- Title -->
-        <TextBlock Text="Welcome to ReminderApp" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,20" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Top"/>
+        <TextBlock Text="Welcome to ReminderApp" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,20" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
 
         <!-- Reminder List -->
-        <ListBox x:Name="ReminderListBox" Grid.Row="1" Grid.ColumnSpan="3" Margin="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ListBox x:Name="ReminderListBox" Grid.Row="1" Grid.Column="0" Margin="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Single">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Subject}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding DateTime}" FontStyle="Italic"/>
+                        <TextBlock Text="{Binding DateTime}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Subject}" FontStyle="Italic"/>
                         <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!-- Logout Button -->
-        <Button Content="Logout" Width="150" Height="40" Margin="10" Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="LogoutButton_Click"/>
+        <!-- Admin Action Buttons (Middle-Right Side) -->
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
+            <!-- View Login Logs Button -->
+            <Button Content="Login Logs" x:Name="ViewLoginLogsButton" Width="100" Height="30" Margin="5" Visibility="Collapsed" Click="ViewLoginLogsButton_Click"/>
+        </StackPanel>
 
-        <!-- View Login Logs Button (Visible only for admin) -->
-        <Button Content="View Login Logs" x:Name="ViewLoginLogsButton" Width="150" Height="40" Margin="10" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Click="ViewLoginLogsButton_Click"/>
-
-        <!-- Add Reminder Button -->
-        <Button Content="Add Reminder" Width="150" Height="40" Margin="10" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="AddReminderButton_Click"/>
+        <!-- Bottom Buttons -->
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20">
+            <Button Content="Add Reminder" Width="150" Height="40" Margin="10" Click="AddReminderButton_Click"/>
+            <Button Content="Delete Reminder" Width="150" Height="40" Margin="10" Click="DeleteReminderButton_Click"/>
+            <Button Content="Logout" Width="150" Height="40" Margin="10" Click="LogoutButton_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

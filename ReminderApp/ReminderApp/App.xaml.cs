@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Media; // For playing sound
 using System.Timers;
 using System.Windows;
 
@@ -45,9 +46,17 @@ namespace ReminderApp
                         DateTime reminderDateTime = DateTime.Parse(parts[0]);
                         string subject = parts[1];
 
+                        // If the current time is within 1 minute of the reminder time
                         if (DateTime.Now >= reminderDateTime && DateTime.Now <= reminderDateTime.AddMinutes(1))
                         {
-                            MessageBox.Show($"Reminder: {subject}", "Reminder", MessageBoxButton.OK, MessageBoxImage.Information);
+                            // Show a message box
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                MessageBox.Show($"Reminder: {subject}", "Reminder", MessageBoxButton.OK, MessageBoxImage.Information);
+                            });
+
+                            // Play a beep or sound
+                            PlayReminderSound();
                         }
                     }
                 }
@@ -55,6 +64,37 @@ namespace ReminderApp
             catch (Exception ex)
             {
                 // Log or handle the error
+            }
+        }
+
+        private void PlayReminderSound()
+        {
+            try
+            {
+                // Use the System.Media.SoundPlayer to play a beep or sound
+                string soundPath = Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    "alarm.wav" // Replace with your custom sound file
+                );
+
+                if (File.Exists(soundPath))
+                {
+                    SoundPlayer player = new SoundPlayer(soundPath);
+                    player.Play(); // Play the sound asynchronously
+                }
+                else
+                {
+                    // Fallback to system beep if no sound file is found
+                    Console.Beep();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the error
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show($"Error playing sound: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
             }
         }
     }

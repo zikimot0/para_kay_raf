@@ -1,16 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace ReminderApp
 {
     public partial class RegisterWindow : Window
     {
-        private const string AdminEmail = "admin@gwapo.com";
-        private const int MinPasswordLength = 6; // Minimum password length for validation
-
         public RegisterWindow()
         {
             InitializeComponent();
@@ -19,78 +14,49 @@ namespace ReminderApp
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             string email = EmailTextBox.Text.Trim();
-            string password = PasswordBox.Password;
+            string password = PasswordBox.Password.Trim();
 
-            // Validate email and password
+            // Validate inputs
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                ShowError("Email and Password cannot be empty.");
-                return;
-            }
-
-            if (!IsValidEmail(email))
-            {
-                ShowError("Invalid email format.");
-                return;
-            }
-
-            if (password.Length < MinPasswordLength)
-            {
-                ShowError($"Password must be at least {MinPasswordLength} characters long.");
+                MessageBox.Show("Email and Password cannot be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             try
             {
-                string userFile = GetUserFilePath(email);
+                // Sanitize email to create a valid file name
+                string sanitizedEmail = string.Join("_", email.Split(Path.GetInvalidFileNameChars()));
+                string userDirectory = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "ReminderApp",
+                    "UserFiles"
+                );
 
-                // Check if user already exists
+                Directory.CreateDirectory(userDirectory); // Ensure the directory exists
+
+                string userFile = Path.Combine(userDirectory, $"{sanitizedEmail}.txt");
+
+                // Check if the user already exists
                 if (File.Exists(userFile))
                 {
-                    ShowError("This email is already registered.");
+                    MessageBox.Show("User already registered. Please log in.", "Registration Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Create user directory if it doesn't exist
-                Directory.CreateDirectory(Path.GetDirectoryName(userFile));
+                // Save user data in the format "Password:<password>"
+                File.WriteAllText(userFile, $"Password:{password}");
+                MessageBox.Show("Registration successful! You can now log in.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Save user information to file
-                File.WriteAllText(userFile, $"Welcome, {email}!\nDate Registered: {DateTime.Now}");
-
-                MessageBox.Show("Registration successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close(); // Close the registration window
+                // Navigate back to the login window
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.Show();
+                this.Close();
             }
             catch (Exception ex)
             {
-                ShowError($"An error occurred: {ex.Message}");
+                MessageBox.Show($"An error occurred while registering: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private string GetUserFilePath(string email)
-        {
-            string sanitizedEmail = string.Join("_", email.Split(Path.GetInvalidFileNameChars()));
-
-            // Use AppData folder for storing user files
-            string userDirectory = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "ReminderApp",
-                "UserFiles"
-            );
-
-            return Path.Combine(userDirectory, $"{sanitizedEmail}.txt");
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            // Simple email validation using regex
-            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(email, emailPattern);
-        }
-
-        private void ShowError(string message)
-        {
-            ErrorMessage.Text = message;
-            ErrorMessage.Visibility = Visibility.Visible;
         }
     }
 }
