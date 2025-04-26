@@ -50,7 +50,11 @@ namespace ReminderApp
                 Directory.CreateDirectory(userFolder);
 
                 string reminderFile = Path.Combine(userFolder, "reminders.txt");
-                string reminderEntry = $"{reminderDateTime:G}|{subject}|{description}{Environment.NewLine}";
+                string safeSubject = subject.Replace("|", "‖"); 
+                string safeDescription = description.Replace("|", "‖");
+
+                string reminderEntry = $"{reminderDateTime:G}|{safeSubject}|{safeDescription}{Environment.NewLine}";
+
                 File.AppendAllText(reminderFile, reminderEntry);
 
                 MessageBox.Show("Reminder saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
